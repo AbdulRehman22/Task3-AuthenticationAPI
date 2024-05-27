@@ -1,0 +1,6 @@
+@Task3_AuthenticationAPI_HostAddress = http://localhost:5013
+
+GET {{Task3_AuthenticationAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
