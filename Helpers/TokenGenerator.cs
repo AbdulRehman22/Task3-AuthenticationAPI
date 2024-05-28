@@ -19,13 +19,17 @@ namespace Task3_AuthenticationAPI.Helpers
                 {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role),
-                new Claim("regions", string.Join(",", user.Regions))
             }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 Audience = audience,
                 Issuer = issuer,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            foreach (var region in user.Regions)
+            {
+                tokenDescriptor.Subject.AddClaim(new Claim("regions", region));
+            }
+
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
