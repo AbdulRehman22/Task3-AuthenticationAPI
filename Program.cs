@@ -3,6 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Task3_AuthenticationAPI.Helpers;
+using Task3_AuthenticationAPI.Interfaces;
+using Task3_AuthenticationAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IUser, UserService>();
 
 var appSettingsSection = builder.Configuration.GetSection("JWTTokenSettingsManager");
 builder.Services.Configure<JWTTokenSettingsManager>(appSettingsSection);
