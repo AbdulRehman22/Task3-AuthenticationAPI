@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Task3_AuthenticationAPI.DTOs;
 using Task3_AuthenticationAPI.Helpers;
-using Task3_AuthenticationAPI.Model;
+using Task3_AuthenticationAPI.Interfaces;
 
 namespace Task3_AuthenticationAPI.Controllers
 {
@@ -12,20 +11,22 @@ namespace Task3_AuthenticationAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly JWTTokenSettingsManager _tokenSettings;
+        private readonly IUser _user;
 
-        public AuthController(IOptions<JWTTokenSettingsManager> tokenSettings) 
+        public AuthController(IOptions<JWTTokenSettingsManager> tokenSettings, IUser user) 
         {
             _tokenSettings = tokenSettings.Value;
+            _user = user;
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginResquest loginRequest)
         {
-            var user = UserStore.Users.SingleOrDefault(u => u.Username == loginRequest.Username && u.Password == loginRequest.Password);
+            var user = _user.Authenticate(loginRequest);
 
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("Incorrect username or password!");
             }
 
             var tokenString = TokenGenerator.GenerateToken(_tokenSettings.Key, _tokenSettings.Audience, _tokenSettings.Issuer, user);
