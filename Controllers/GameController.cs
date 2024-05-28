@@ -12,14 +12,14 @@ namespace Task3_AuthenticationAPI.Controllers
         [Authorize(Roles = AppRoles.Player)]
         public IActionResult GetPlayerArea()
         {
-            return Ok("Welcome Player!");
+            return Ok(new { message = "Welcome Player!" });
         }
 
         [HttpGet("admin-area")]
         [Authorize(Roles = AppRoles.Admin)]
         public IActionResult GetAdminArea()
         {
-            return Ok("Welcome Admin!");
+            return Ok(new { message = "Welcome Admin!" });
         }
     }
 }

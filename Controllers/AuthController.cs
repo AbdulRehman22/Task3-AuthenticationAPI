@@ -28,7 +28,7 @@ namespace Task3_AuthenticationAPI.Controllers
 
                 if (user == null)
                 {
-                    return Unauthorized("Incorrect username or password!");
+                return Unauthorized(new { error = "Incorrect username or password" } );
                 }
 
                 var tokenString = TokenGenerator.GenerateToken(_tokenSettings.Key, _tokenSettings.Audience, _tokenSettings.Issuer, user);
@@ -42,7 +42,7 @@ namespace Task3_AuthenticationAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
     }
