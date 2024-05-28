@@ -36,7 +36,7 @@ namespace Task3_AuthenticationAPI.Controllers
                 return Ok(new LoginResponse
                 {
                     Token = tokenString,
-                    Roles = user.Roles,
+                    Role = user.Role,
                     Regions = user.Regions
                 });
             }

@@ -18,7 +18,7 @@ namespace Task3_AuthenticationAPI.Helpers
                 Subject = new ClaimsIdentity(new[]
                 {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, string.Join(",", user.Roles)),
+                new Claim(ClaimTypes.Role, user.Role),
                 new Claim("regions", string.Join(",", user.Regions))
             }),
                 Expires = DateTime.UtcNow.AddHours(1),

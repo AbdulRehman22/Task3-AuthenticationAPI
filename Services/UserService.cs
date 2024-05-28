@@ -8,8 +8,8 @@ namespace Task3_AuthenticationAPI.Services
     {
         private readonly List<User> _users =
        [
-           new() { Username = "user1", Password = "password1", Roles = ["player"], Regions = ["b_game"] },
-           new() { Username = "admin", Password = "adminpassword", Roles = ["admin"], Regions = ["b_game", "vip_chararacter_personalize"] }
+           new() { Username = "user1", Password = "password1", Role = "player", Regions = ["b_game"] },
+           new() { Username = "admin", Password = "adminpassword", Role = "admin", Regions = ["b_game", "vip_chararacter_personalize"] }
        ];
         public User? Authenticate(LoginResquest resquest)
         {
