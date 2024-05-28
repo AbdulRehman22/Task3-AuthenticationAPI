@@ -9,14 +9,14 @@ namespace Task3_AuthenticationAPI.Controllers
     public class GameController : ControllerBase
     {
         [HttpGet("player-area")]
-        [Authorize(Roles = AppRoles.Player)]
+        [Authorize(Policy = AppRegions.PlayerRegion)]
         public IActionResult GetPlayerArea()
         {
             return Ok(new { message = "Welcome Player!" });
         }
 
         [HttpGet("admin-area")]
-        [Authorize(Roles = AppRoles.Admin)]
+        [Authorize(Policy = AppRegions.AdminRegion)]
         public IActionResult GetAdminArea()
         {
             return Ok(new { message = "Welcome Admin!" });

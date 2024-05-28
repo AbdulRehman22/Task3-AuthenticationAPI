@@ -39,6 +39,12 @@ builder.Services.AddAuthentication(x =>
            };
        });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(AppRegions.PlayerRegion, policy => policy.RequireClaim("regions", "b_game", "vip_chararacter_personalize"));
+    options.AddPolicy(AppRegions.AdminRegion, policy => policy.RequireClaim("regions", "vip_chararacter_personalize"));
+});
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -51,28 +57,28 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. Forexample: Bearer {token}"
+        Description = "JWT Authorization header using the Bearer scheme. Forexample: {token}"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+                new OpenApiSecurityScheme
                 {
+                    Reference = new OpenApiReference
                     {
-                          new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] {}
-
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
                     }
-                });
+                },
+                new string[] {}
+
+        }
+    });
 });
 
 
