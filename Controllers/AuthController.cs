@@ -22,21 +22,28 @@ namespace Task3_AuthenticationAPI.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginResquest loginRequest)
         {
-            var user = _user.Authenticate(loginRequest);
-
-            if (user == null)
+            try
             {
-                return Unauthorized("Incorrect username or password!");
+                var user = _user.Authenticate(loginRequest);
+
+                if (user == null)
+                {
+                    return Unauthorized("Incorrect username or password!");
+                }
+
+                var tokenString = TokenGenerator.GenerateToken(_tokenSettings.Key, _tokenSettings.Audience, _tokenSettings.Issuer, user);
+
+                return Ok(new LoginResponse
+                {
+                    Token = tokenString,
+                    Roles = user.Roles,
+                    Regions = user.Regions
+                });
             }
-
-            var tokenString = TokenGenerator.GenerateToken(_tokenSettings.Key, _tokenSettings.Audience, _tokenSettings.Issuer, user);
-          
-            return Ok(new LoginResponse
+            catch (Exception ex)
             {
-                Token = tokenString,
-                Roles = user.Roles,
-                Regions = user.Regions
-            });
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

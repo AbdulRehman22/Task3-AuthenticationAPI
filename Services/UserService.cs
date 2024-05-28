@@ -13,8 +13,15 @@ namespace Task3_AuthenticationAPI.Services
        ];
         public User? Authenticate(LoginResquest resquest)
         {
-            var user = _users.SingleOrDefault(u => u.Username == resquest.Username && u.Password == resquest.Password);
-            return user;
+            try
+            {
+                var user = _users.FirstOrDefault(u => u.Username == resquest.Username && u.Password == resquest.Password);
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
