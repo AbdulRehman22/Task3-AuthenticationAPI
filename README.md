@@ -22,5 +22,7 @@ Open the .sln file to open the project in Visual Studio.
 or
 
 cd Task3-AuthenticationAPI
+
 dotnet restore
+
 dotnet run
