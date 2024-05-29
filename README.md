@@ -15,12 +15,14 @@ Clone the repository to your local machine using the following command:
 
 git clone https://github.com/AbdulRehman22/Task3-AuthenticationAPI.git
 
-### 1. Run the Project
+### 2. Run the Project
 Open the project directory.
 Open the .sln file to open the project in Visual Studio.
 
 or
 
 cd Task3-AuthenticationAPI
+
 dotnet restore
+
 dotnet run
