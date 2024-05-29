@@ -2,7 +2,7 @@
 This demo project includes OAuth API for Users i.e Player, Admin.
 They can log into the app. After getting the JWT in the response, They can visit their respected Game Area.
 
-# Project API Setup
+# Project Setup
 
 ## Prerequisites
 - .NET SDK (version 8)
